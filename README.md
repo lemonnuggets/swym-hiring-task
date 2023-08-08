@@ -10,22 +10,36 @@ Live Event Question Capture System.
 
 1. Clone the repo
 
-   ```sh
-    git clone https://github.com/lemonnuggets/swym-hiring-task.git
-    cd swym-hiring-task
-   ```
+```sh
+git clone https://github.com/lemonnuggets/swym-hiring-task.git
+cd swym-hiring-task
+```
 
 2. Install NPM packages
 
-   ```sh
-   pnpm install
-   ```
+```sh
+pnpm install
+```
 
-3. Create .env file and add the api key values.
+3. Copy .env.example file and rename it to .env. Add the api key values.
 
-   ```js
-   SUBSCAN_API_KEY = "*******************************************";
-   ```
+```sh
+mv .env.example .env
+```
+
+4. If you want to use PlanetScale, create a new database and add the database url to the .env file. Create a new branch and add connection string to the branch as shadow db.
+
+```js
+DATABASE_URL = "";
+SHADOW_DATABASE_URL = "";
+```
+
+5. Follow instructions [here](https://support.heateor.com/discord-client-id-discord-client-secret/) to get the discord client id and client secret. Add the values to the .env file.
+
+```js
+DISCORD_CLIENT_ID = "";
+DISCORD_CLIENT_SECRET = "";
+```
 
 ## Usage
 
