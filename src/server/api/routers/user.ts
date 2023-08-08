@@ -1,7 +1,18 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../trpc";
+import { createTRPCRouter, protectedProcedure, publicProcedure } from "../trpc";
 
 export const userRouter = createTRPCRouter({
+  isValidEvent: publicProcedure
+    .input(z.object({ eventId: z.string() }))
+    .query(({ ctx, input }) => {
+      const res = ctx.prisma.event.findFirst({
+        where: {
+          id: input.eventId,
+        },
+      });
+      if (res == null) return false;
+      return true;
+    }),
   getEvent: protectedProcedure
     .input(
       z.object({
@@ -13,6 +24,14 @@ export const userRouter = createTRPCRouter({
         where: {
           id: input.eventId,
           userId: ctx.session?.user?.id,
+        },
+        include: {
+          Question: {
+            select: {
+              id: true,
+              text: true,
+            },
+          },
         },
       });
     }),
