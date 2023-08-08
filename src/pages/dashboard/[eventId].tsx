@@ -48,6 +48,12 @@ const EventDetails = () => {
               </p>
             </div>
             <div className="questions">
+              {event?.Question.length === 0 && (
+                <p className="text-white">No questions yet.</p>
+              )}
+              {event?.Question.length > 0 && (
+                <p className="mt-10 text-xl text-white">Questions:</p>
+              )}
               {event?.Question.map((question) => (
                 <div
                   key={question.id}
