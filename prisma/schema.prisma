@@ -28,7 +28,7 @@ model Event {
     updatedAt   DateTime   @updatedAt
     name        String
     description String?
-    date        DateTime
+    date        String
     time        String?
     ttl         Int?
     user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
