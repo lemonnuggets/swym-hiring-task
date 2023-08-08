@@ -6,11 +6,11 @@ const Question = () => {
   const router = useRouter();
   const eventId = router.query.eventId as string | undefined;
   const {
-    data: isValidEvent,
+    data: event,
     isLoading,
     isError,
-  } = api.user.isValidEvent.useQuery({
-    eventId: eventId ?? "",
+  } = api.event.getEvent.useQuery({
+    id: eventId ?? "",
   });
   const { mutate } = api.question.addQuestion.useMutation();
   const [text, setText] = useState("");
@@ -18,10 +18,16 @@ const Question = () => {
   if (eventId === undefined) return <p>Invalid event</p>;
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error fetching event</p>;
-  if (!isValidEvent) return <p>Invalid event</p>;
+  if (!event) return <p>Invalid event</p>;
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-[#2e026d] to-[#15162c]">
+      <div className="flex flex-col justify-start text-xl">
+        <p className="text-white">Name: {event?.name}</p>
+        <p className="text-white">Description: {event?.description}</p>
+        <p className="text-white">Timing: {`${event?.date} ${event?.time}`}</p>
+        <p className="mt-10 text-white">You can enter your question below.</p>
+      </div>
       <div>
         <form
           onSubmit={(e) => {
