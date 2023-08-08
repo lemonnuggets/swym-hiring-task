@@ -34,6 +34,8 @@ model Event {
     user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
     userId      String
     Question    Question[]
+
+    @@index([userId], name: "userId")
 }
 
 model Question {
@@ -43,6 +45,8 @@ model Question {
     text      String
     event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
     eventId   String
+
+    @@index([eventId], name: "eventId")
 }
 
 // Necessary for Next auth
@@ -62,6 +66,7 @@ model Account {
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@index([userId], name: "userId")
 }
 
 model Session {
@@ -70,6 +75,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@index([userId], name: "userId")
 }
 
 model User {
